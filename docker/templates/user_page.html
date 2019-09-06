@@ -1,0 +1,37 @@
+  <html>
+  <head>
+    <title>Notes</title>
+  </head>
+  <body>
+    
+    <h2>Welcome {{user}}</h2>
+    <h3>Add note</h3>
+    <form method="post">
+      <label>
+        <div>Title</div>
+        <input type="text" name="title">
+      </label>
+
+      <label>
+        <div>Note</div>
+        <textarea name="note"></textarea>
+      </label>
+
+      <div>
+        <input type="Submit" name="">
+      </div>
+    </form>
+
+    <h2>Your notes</h2>
+
+    {% for post in posts%}
+      <div>
+        <h2>{{post["title"]}}</h2>
+        <p>{{post["time"]}}</p>
+        <pre>{{post["note"]}}</pre>
+        <p>------------------------------------------------</p>
+      </div>
+    {% endfor %}
+
+  </body>
+</html>

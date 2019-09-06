@@ -1,6 +1,6 @@
 # Notes App CI/CD
 
-A basic notes application paired with a declarative Jenkins job for continuos deployment and provisioning configuration.
+A basic notes application paired with a declarative Jenkins job for continuous deployment and provisioning configuration.
 It contains:
 - Raw flask notes app supporting multiple users workspaces deployed as a service on remote server
 - Terraform script to launch two tc2.micro EC2 instances in AWS, a custom vpc with one public subnet and all the relevant configurations
@@ -26,6 +26,9 @@ For persistent storage uncomment the line
 ```
 # - db_data:/var/lib/mysql
 ```
+Application will be accessible from localhost on port 80.
+
+*Required improvement: wait for database to create before running the app*
 
 ## Pipeline
 

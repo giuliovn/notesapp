@@ -12,11 +12,11 @@ services:
       - shared
 
   app:
-    image: noteslim
+    image: prova
     environment:
       DB_HOST: db
     ports:
-      - "80:8000"
+      - "80:80"
     depends_on:
       - db
     networks:
