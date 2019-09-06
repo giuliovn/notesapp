@@ -1,0 +1,11 @@
+[Unit]
+Description=Notes service
+
+[Service]
+WorkingDirectory=/home/ubuntu/app
+ExecStart=/usr/bin/python3 notes.py
+User=root
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

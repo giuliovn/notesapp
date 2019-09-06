@@ -1,0 +1,80 @@
+- hosts: db
+  remote_user: ubuntu
+
+  tasks:
+  - name: Ensure pip3 is present
+    become: yes  
+    apt:
+      name: python3-pip
+      update_cache: true
+      state: present
+
+  - name: Install docker 
+    become: yes
+    shell: curl -sSL https://get.docker.com/ | sh
+
+  - name: Install docker python library
+    become: yes
+    pip:
+      name: docker
+
+  - name: Copy database dump file
+    copy:
+      src: ../../notes.sql
+      dest: ~/dump/
+
+  - name: Start mysql container
+    become: yes
+    docker_container:
+      name: mysql
+      image: mysql:5.7
+      env:
+        MYSQL_ROOT_PASSWORD: "notes"
+      ports:
+       - "3306:3306"
+      volumes:
+        - "/home/ubuntu/dump/notes.sql:/docker-entrypoint-initdb.d/init.sql"
+      restart_policy: on-failure
+      #detach: yes
+      state: started
+
+- hosts: app
+  remote_user: ubuntu
+
+  tasks:
+  - name: Ensure python3 and pip3 are presents
+    become: yes  
+    apt:
+      name: ["python3", "python3-pip"]
+      update_cache: true
+      state: present
+
+  - name: Copy application files
+    become: yes
+    template: src={{item.src}} dest={{item.dest}}
+    with_items:
+      - { src: '../../notes.py', dest: '/home/ubuntu/app/' }
+      - { src: '../../requirements.txt', dest: '/home/ubuntu/app/' }
+
+  - name: Copy templates files and service
+    become: yes
+    copy: src={{item.src}} dest={{item.dest}}
+    with_items:
+      - { src: '../../templates/index.html', dest: '/home/ubuntu/app/templates/' }
+      - { src: '../../templates/login.html', dest: '/home/ubuntu/app/templates/' }
+      - { src: '../../templates/user_page.html', dest: '/home/ubuntu/app/templates/' }
+      - { src: '../../notes.service', dest: '/etc/systemd/system/' }
+
+  - name: Install requirements
+    become: yes
+    pip:
+      requirements: /home/ubuntu/app/requirements.txt
+
+  - name: Start app under systemd
+    become: yes
+    systemd: 
+      name: notes
+      daemon_reload: yes
+      enabled: yes
+      state: restarted
+
