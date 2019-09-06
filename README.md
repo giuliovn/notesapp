@@ -44,10 +44,10 @@ Configure email notifications.
 
 ### Requirements
 
-**- AWS account and valid credentials**
-**- S3 bucket to store terraform state**
+- **AWS account and valid credentials**
+- **S3 bucket to store terraform state**
     Or drop the remote.tf file for storing locally terraform state
-**- SSH key pair**
+- **SSH key pair**
     Fill with **public** key name and path relevant fields in variables.auto.tfvars
 
 ## NB
