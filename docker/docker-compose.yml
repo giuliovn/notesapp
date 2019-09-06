@@ -12,7 +12,7 @@ services:
       - shared
 
   app:
-    image: prova
+    image: noteslim
     environment:
       DB_HOST: db
     ports:
