@@ -2,13 +2,13 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
-# import os
+import os
 
 app = Flask(__name__)
 
 def connect_db():
     mydb = mysql.connector.connect(
-        host="{{ db_host }}", #os.environ['DB_HOST']
+        host=os.environ['DB_HOST'],
         user="root",
         passwd="notes",
         database="Notes",

@@ -37,16 +37,18 @@ Configure Jenkins server and a source control repository, you can use this local
 https://github.com/giuliovn/Jenkins-gogs
 
 Install and configure Terraform plugin.
+
 Install ssh-agent plugin and create credentials with the private key that will be used for the servers.
+
 Configure email notifications.
 
 ### Requirements
 
-#### AWS account and valid credentials
-#### S3 bucket to store terraform state
-Or drop the remote.tf file for storing locally terraform state
-### SSH key pair
-Fill with **public** key name and path relevant fields in variables.auto.tfvars
+**- AWS account and valid credentials**
+**- S3 bucket to store terraform state**
+    Or drop the remote.tf file for storing locally terraform state
+**- SSH key pair**
+    Fill with **public** key name and path relevant fields in variables.auto.tfvars
 
 ## NB
 Both the instances have port 22 open to all the internet, you may want to restrict it to your IP.
